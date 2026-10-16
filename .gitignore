@@ -68,7 +68,9 @@ packaging/obj/
 *.db
 *.db-shm
 *.db-wal
+*.log
 data/spool/
+data/e2e-*
 !data/corpus/*.jsonl
 
 # Local dev secrets produced by scripts/gen-dev-certs.sh

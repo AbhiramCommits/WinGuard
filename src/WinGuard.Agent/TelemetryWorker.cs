@@ -20,6 +20,7 @@ public sealed class TelemetryWorker : BackgroundService
     private readonly DetectionEngine _engine;
     private readonly AgentApiClient _api;
     private readonly AgentApiOptions _apiOptions;
+    private readonly IHostApplicationLifetime _lifetime;
     private readonly ILogger<TelemetryWorker> _logger;
 
     private long _observed;
@@ -31,12 +32,14 @@ public sealed class TelemetryWorker : BackgroundService
         DetectionEngine engine,
         AgentApiClient api,
         IOptions<AgentApiOptions> apiOptions,
+        IHostApplicationLifetime lifetime,
         ILogger<TelemetryWorker> logger)
     {
         _source = source;
         _engine = engine;
         _api = api;
         _apiOptions = apiOptions.Value;
+        _lifetime = lifetime;
         _logger = logger;
     }
 
@@ -54,6 +57,10 @@ public sealed class TelemetryWorker : BackgroundService
         {
             await _api.RegisterAsync(host, stoppingToken).ConfigureAwait(false);
             await _api.FlushSpoolAsync(stoppingToken).ConfigureAwait(false);
+
+            // Send one heartbeat immediately so the fleet view shows the host as
+            // Online from the first poll, even for very short runs.
+            await SendHeartbeatAsync(host, DateTimeOffset.UtcNow, 0, stoppingToken).ConfigureAwait(false);
         }
 
         var pendingEvents = new List<DetectionEventDto>();
@@ -109,6 +116,10 @@ public sealed class TelemetryWorker : BackgroundService
             "Telemetry stream ended after {Observed} snapshots and {Detections} detections.",
             _observed,
             _detections);
+
+        // A finite source (the replay corpus) has been fully consumed: stop the
+        // host so `dotnet run` returns instead of waiting for a shutdown signal.
+        _lifetime.StopApplication();
     }
 
     private async Task FlushAsync(

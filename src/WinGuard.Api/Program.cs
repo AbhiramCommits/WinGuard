@@ -121,11 +121,16 @@ if (builder.Configuration.GetValue("Database:MigrateOnStartup", true))
 // ---------------------------------------------------------------------------
 // Pipeline
 // ---------------------------------------------------------------------------
+app.UseMiddleware<SecurityHeadersMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.UseRateLimiter();
 app.UseAuthentication();
