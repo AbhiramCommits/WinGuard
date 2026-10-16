@@ -28,5 +28,7 @@ public static class RepoPaths
 
     public static string CorpusDirectory => Path.Combine(FindRepoRoot(), "data", "corpus");
 
+    public static string CorpusFile(string name) => Path.Combine(CorpusDirectory, name);
+
     public static string ResultsDirectory => Path.Combine(FindRepoRoot(), "results");
 }

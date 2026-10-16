@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  DOTNET_NOLOGO: "true"
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+  CI: "true"
+
+jobs:
+  build-test-benchmark:
+    name: build / test / benchmark (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore tools
+        run: dotnet tool restore
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build (warnings are errors)
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test with coverage
+        run: dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage" --results-directory ./TestResults
+
+      - name: Run the detection benchmark
+        run: dotnet run --no-build --configuration Release --project src/WinGuard.Eval -- benchmark --test-count 132
+
+      - name: Upload test coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.os }}
+          path: TestResults/**/coverage.cobertura.xml
+          if-no-files-found: warn
+
+      - name: Upload benchmark results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results-${{ matrix.os }}
+          path: results/
+          if-no-files-found: error
+
+  native-collector:
+    # The Win32/ETW collector is Windows-only. This job proves the real C++
+    # interop code compiles: it is never exercised on other platforms, where the
+    # agent uses the corpus replay source instead.
+    name: native collector (windows-latest)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show CMake version
+        run: cmake --version
+
+      - name: Configure CMake
+        run: cmake -S native/winguard_native -B native/out -A x64
+
+      - name: Build winguard_native.dll
+        run: cmake --build native/out --config Release
+
+      - name: Verify the DLL was produced
+        shell: pwsh
+        run: |
+          $dll = Get-ChildItem -Path native/out -Recurse -Filter winguard_native.dll
+          if (-not $dll) { throw "winguard_native.dll was not produced by the native build." }
+          $dll | ForEach-Object { Write-Host "Built $($_.FullName)" }
+
+      - name: Upload native artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: winguard_native-windows
+          path: native/out/**/winguard_native.dll
+          if-no-files-found: error

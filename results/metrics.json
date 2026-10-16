@@ -1,0 +1,108 @@
+{
+  "environment": {
+    "runTimestampUtc": "2026-10-16T07:47:13.1560920\u002B00:00",
+    "machineName": "Abhirams-MacBook-Air",
+    "osDescription": "Darwin 27.0.0 Darwin Kernel Version 27.0.0: Tue Aug 11 21:05:41 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T8122",
+    "osArchitecture": "Arm64",
+    "processArchitecture": "Arm64",
+    "frameworkDescription": ".NET 8.0.31",
+    "runtimeIdentifier": "osx-arm64",
+    "processorCount": 8,
+    "telemetrySource": "ReplayTelemetrySource",
+    "detectorPlatformNote": "Corpus replay: the Win32/ETW collector requires Windows and is compiled but not exercised on this host."
+  },
+  "labeledCorpusPath": "/Users/abhiramkasireddi/WinGuard/data/corpus/labeled.jsonl",
+  "benignCorpusPath": "/Users/abhiramkasireddi/WinGuard/data/corpus/benign.jsonl",
+  "labeledCorpusSnapshots": 2000,
+  "labeledCorpusTamperedSnapshots": 300,
+  "labeledRuleInstances": 440,
+  "perRule": [
+    {
+      "ruleId": "R001",
+      "truePositives": 107,
+      "falsePositives": 0,
+      "falseNegatives": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    {
+      "ruleId": "R002",
+      "truePositives": 55,
+      "falsePositives": 0,
+      "falseNegatives": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    {
+      "ruleId": "R003",
+      "truePositives": 111,
+      "falsePositives": 0,
+      "falseNegatives": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    {
+      "ruleId": "R004",
+      "truePositives": 57,
+      "falsePositives": 0,
+      "falseNegatives": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    {
+      "ruleId": "R005",
+      "truePositives": 55,
+      "falsePositives": 0,
+      "falseNegatives": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    },
+    {
+      "ruleId": "R006",
+      "truePositives": 55,
+      "falsePositives": 0,
+      "falseNegatives": 0,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1
+    }
+  ],
+  "overall": {
+    "ruleId": "ALL",
+    "truePositives": 440,
+    "falsePositives": 0,
+    "falseNegatives": 0,
+    "precision": 1,
+    "recall": 1,
+    "f1": 1
+  },
+  "benignCorpusSnapshots": 500,
+  "benignFalsePositives": 0,
+  "benignTrueNegatives": 3000,
+  "benignFalsePositiveRate": 0,
+  "detectionLatency": {
+    "p50Ms": 0.0063,
+    "p95Ms": 0.0205,
+    "p99Ms": 0.0384,
+    "meanMs": 0.008597699999999986,
+    "maxMs": 0.2312,
+    "sampleCount": 2000
+  },
+  "detectionThroughputSnapshotsPerSecond": 113243.8706754997,
+  "detectionPhaseSeconds": 0.017661,
+  "ingestedDetectionEvents": 452,
+  "ingestedObservations": 301,
+  "ingestThroughputEventsPerSecond": 1986.465128831365,
+  "ingestPhaseSeconds": 0.3790653,
+  "managedHeapHighWaterMarkMb": 65.195,
+  "totalAllocatedBytes": 205996032,
+  "processWorkingSetHighWaterMarkMb": 199.094,
+  "processWorkingSetAvailable": true,
+  "testCount": 132,
+  "notes": "Accuracy is measured against the ground-truth \u0060labels\u0060 array on every corpus line. Ingest throughput is measured by posting engine output through the real HTTP pipeline (HMAC verification, validation, rate limiting, EF Core persistence) hosted in-process."
+}

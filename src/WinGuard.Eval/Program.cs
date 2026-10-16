@@ -23,6 +23,8 @@ public static class Program
             {
                 case "gen-corpus":
                     return await GenerateCorpusAsync(args).ConfigureAwait(false);
+                case "benchmark":
+                    return await Benchmark.BenchmarkCommand.RunAsync(args).ConfigureAwait(false);
                 case "help":
                 case "--help":
                 case "-h":
