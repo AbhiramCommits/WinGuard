@@ -1,0 +1,50 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+# C# / .NET
+[*.cs]
+indent_size = 4
+dotnet_sort_system_directives_first = true
+csharp_new_line_before_open_brace = all
+csharp_style_namespace_declarations = file_scoped:suggestion
+csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+csharp_style_expression_bodied_properties = true:suggestion
+dotnet_diagnostic.IDE0005.severity = warning
+dotnet_diagnostic.CA2007.severity = none
+dotnet_diagnostic.CA1848.severity = none
+dotnet_diagnostic.IDE0290.severity = suggestion
+
+[*.{csproj,props,targets}]
+indent_size = 2
+
+# Web assets — keep the dashboard dependency free (no build step).
+[*.{html,css,js,json}]
+indent_size = 2
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+# Native sources
+[*.{c,cpp,h,hpp}]
+indent_size = 4
+
+[CMakeLists.txt]
+indent_size = 2
+
+[*.sh]
+indent_size = 2
+
+[*.ps1]
+indent_size = 4

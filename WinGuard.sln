@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A61AC738-A090-47D3-A116-7EB67D5BEE10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinGuard.Core", "src\WinGuard.Core\WinGuard.Core.csproj", "{BEBDEC9A-6C2B-4DCA-82A6-E80298762D91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinGuard.Agent", "src\WinGuard.Agent\WinGuard.Agent.csproj", "{0A4EA869-B719-4D26-9C8A-E27F0A4DF4FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinGuard.Api", "src\WinGuard.Api\WinGuard.Api.csproj", "{1FC41B27-89E0-4396-86EE-F0B7AF62C97E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinGuard.Eval", "src\WinGuard.Eval\WinGuard.Eval.csproj", "{53F3D6D4-5781-4C36-99C3-0034AB19C162}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1FC6CBF1-9B4D-4799-9CBC-502FBD8B39A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinGuard.Tests", "tests\WinGuard.Tests\WinGuard.Tests.csproj", "{B33529B4-02E2-4F51-B9A8-E84FAB7BFBE5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEBDEC9A-6C2B-4DCA-82A6-E80298762D91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEBDEC9A-6C2B-4DCA-82A6-E80298762D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEBDEC9A-6C2B-4DCA-82A6-E80298762D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEBDEC9A-6C2B-4DCA-82A6-E80298762D91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A4EA869-B719-4D26-9C8A-E27F0A4DF4FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A4EA869-B719-4D26-9C8A-E27F0A4DF4FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A4EA869-B719-4D26-9C8A-E27F0A4DF4FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A4EA869-B719-4D26-9C8A-E27F0A4DF4FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FC41B27-89E0-4396-86EE-F0B7AF62C97E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC41B27-89E0-4396-86EE-F0B7AF62C97E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC41B27-89E0-4396-86EE-F0B7AF62C97E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC41B27-89E0-4396-86EE-F0B7AF62C97E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53F3D6D4-5781-4C36-99C3-0034AB19C162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53F3D6D4-5781-4C36-99C3-0034AB19C162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53F3D6D4-5781-4C36-99C3-0034AB19C162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53F3D6D4-5781-4C36-99C3-0034AB19C162}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B33529B4-02E2-4F51-B9A8-E84FAB7BFBE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B33529B4-02E2-4F51-B9A8-E84FAB7BFBE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B33529B4-02E2-4F51-B9A8-E84FAB7BFBE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B33529B4-02E2-4F51-B9A8-E84FAB7BFBE5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BEBDEC9A-6C2B-4DCA-82A6-E80298762D91} = {A61AC738-A090-47D3-A116-7EB67D5BEE10}
+		{0A4EA869-B719-4D26-9C8A-E27F0A4DF4FC} = {A61AC738-A090-47D3-A116-7EB67D5BEE10}
+		{1FC41B27-89E0-4396-86EE-F0B7AF62C97E} = {A61AC738-A090-47D3-A116-7EB67D5BEE10}
+		{53F3D6D4-5781-4C36-99C3-0034AB19C162} = {A61AC738-A090-47D3-A116-7EB67D5BEE10}
+		{B33529B4-02E2-4F51-B9A8-E84FAB7BFBE5} = {1FC6CBF1-9B4D-4799-9CBC-502FBD8B39A4}
+	EndGlobalSection
+EndGlobal

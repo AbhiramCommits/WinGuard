@@ -1,0 +1,82 @@
+# -------------------- .NET --------------------
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+.vscode/
+*.binlog
+*.tlog
+project.lock.json
+project.fragment.lock.json
+artifacts/
+TestResults/
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+*.trx
+*.received.*
+BenchmarkDotNet.Artifacts/
+
+# -------------------- NuGet --------------------
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+!packages/*.ps1
+!packages/build/
+!packages/runtimes/
+
+# -------------------- Node --------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.eslintcache
+
+# -------------------- Native / CMake --------------------
+out/
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+*.o
+*.obj
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.dll
+*.so
+*.dylib
+!native/**/*.dll
+
+# -------------------- WiX / packaging --------------------
+packaging/bin/
+packaging/obj/
+*.wixobj
+*.wixpdb
+
+# -------------------- Runtime artifacts --------------------
+# Local SQLite databases and agent spool directories are runtime state.
+*.db
+*.db-shm
+*.db-wal
+data/spool/
+!data/corpus/*.jsonl
+
+# Local dev secrets produced by scripts/gen-dev-certs.sh
+certs/dev/
+
+# -------------------- OS / editor --------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
