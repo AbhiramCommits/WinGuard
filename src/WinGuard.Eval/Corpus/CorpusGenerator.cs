@@ -124,10 +124,16 @@ public sealed class CorpusGenerator
                 var draft = CreateDraft(host, arch, observed);
                 ApplyTamper(draft, kind);
 
-                // Occasionally combine two indicators so severity correlation is exercised.
+                // Occasionally combine two indicators so severity correlation is
+                // exercised. Only indicators the chosen archetype can satisfy are
+                // eligible, so the generated labels always match the rules.
                 if (order % 7 == 0)
                 {
-                    ApplyTamper(draft, TamperKinds[_rng.Next(TamperKinds.Length)]);
+                    var eligible = TamperKinds
+                        .Where(k => !RequiresProtectedProcess(k) || arch.IsProtected)
+                        .ToArray();
+
+                    ApplyTamper(draft, eligible[_rng.Next(eligible.Length)]);
                 }
 
                 snapshots.Add(draft.ToSnapshot());
@@ -203,13 +209,15 @@ public sealed class CorpusGenerator
 
         foreach (var template in Pick(arch.Extras, 2, Math.Min(4, arch.Extras.Length)))
         {
-            draft.Modules.Add(Materialize(template, draft.NextBase()));
+            draft.Modules.Add(Materialize(
+                template with { Path = ResolveModulePath(arch, template) },
+                draft.NextBase()));
         }
 
         foreach (var template in Pick(arch.LocalExtras, 1, Math.Min(2, arch.LocalExtras.Length)))
         {
             draft.Modules.Add(Materialize(
-                template with { Path = JoinPath(arch.Directory, template.Name) },
+                template with { Path = ResolveModulePath(arch, template) },
                 draft.NextBase()));
         }
 
@@ -336,7 +344,10 @@ public sealed class CorpusGenerator
         });
 
         draft.Labels.Add(RuleIds.InjectedModulePath);
-        draft.Labels.Add(RuleIds.UnsignedModuleLoaded);
+        if (draft.IsProtected)
+        {
+            draft.Labels.Add(RuleIds.UnsignedModuleLoaded);
+        }
     }
 
     private void ApplyManualMap(SnapshotDraft draft)
@@ -392,7 +403,10 @@ public sealed class CorpusGenerator
             : SystemModuleCatalog.UnsignedDriver($"wg{Hex(6)}.sys");
 
         draft.Modules.Add(Materialize(template, draft.NextBase()));
-        draft.Labels.Add(RuleIds.UnsignedModuleLoaded);
+        if (draft.IsProtected)
+        {
+            draft.Labels.Add(RuleIds.UnsignedModuleLoaded);
+        }
     }
 
     private void ApplyRwxRegion(SnapshotDraft draft)
@@ -409,7 +423,11 @@ public sealed class CorpusGenerator
         });
 
         // An RWX private region is also an unbacked executable region.
-        draft.Labels.Add(RuleIds.RwxPrivateRegion);
+        if (draft.IsProtected)
+        {
+            draft.Labels.Add(RuleIds.RwxPrivateRegion);
+        }
+
         draft.Labels.Add(RuleIds.UnbackedExecutableMemory);
     }
 
@@ -489,6 +507,13 @@ public sealed class CorpusGenerator
     }
 
     private static ulong Align(ulong value, ulong alignment) => (value + alignment - 1) & ~(alignment - 1);
+
+    private static bool IsQualifiedPath(string path)
+        => path.StartsWith(@"\\", StringComparison.Ordinal)
+           || (path.Length >= 2 && path[1] == ':');
+
+    private static string ResolveModulePath(Archetype arch, ModuleTemplate template)
+        => IsQualifiedPath(template.Path) ? template.Path : JoinPath(arch.Directory, template.Path);
 
     private static string JoinPath(string directory, string name) => $@"{directory}\{name}";
 

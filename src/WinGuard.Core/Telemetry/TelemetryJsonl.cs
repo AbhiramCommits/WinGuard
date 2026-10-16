@@ -31,7 +31,7 @@ public static class TelemetryJsonl
     {
         await foreach (var line in File.ReadLinesAsync(path, ct).ConfigureAwait(false))
         {
-            if (string.IsNullOrWhiteSpace(line) || line[0] == '#')
+            if (IsSkippable(line))
             {
                 continue;
             }
@@ -39,6 +39,22 @@ public static class TelemetryJsonl
             yield return Deserialize(line);
         }
     }
+
+    /// <summary>Synchronous variant of <see cref="ReadAsync"/>, for batch/evaluation callers.</summary>
+    public static IEnumerable<ProcessSnapshot> ReadLines(string path)
+    {
+        foreach (var line in File.ReadLines(path))
+        {
+            if (IsSkippable(line))
+            {
+                continue;
+            }
+
+            yield return Deserialize(line);
+        }
+    }
+
+    private static bool IsSkippable(string line) => string.IsNullOrWhiteSpace(line) || line[0] == '#';
 
     public static async Task WriteAllAsync(
         string path,
