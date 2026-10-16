@@ -24,6 +24,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(winguard_native SHARED
   collector.cpp
+  etw_consumer.cpp
+  winguard_native.h
 )
 
 target_compile_definitions(winguard_native PRIVATE

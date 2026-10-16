@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>WinGuard.Agent</RootNamespace>
     <UserSecretsId>dotnet-WinGuard.Agent-c88b540a-2227-47d3-bd3c-49d091e10875</UserSecretsId>
+    <!-- DllImport is used deliberately: the native shim is a plain C ABI DLL. -->
+    <NoWarn>$(NoWarn);SYSLIB1054</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,4 +15,5 @@
   <ItemGroup>
     <ProjectReference Include="..\WinGuard.Core\WinGuard.Core.csproj" />
   </ItemGroup>
+
 </Project>
