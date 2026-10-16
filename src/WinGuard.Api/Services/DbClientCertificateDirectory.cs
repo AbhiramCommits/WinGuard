@@ -7,8 +7,6 @@ namespace WinGuard.Api.Services;
 public interface IClientCertificateDirectory
 {
     Task<string?> ResolveHostIdAsync(string thumbprint, CancellationToken ct);
-
-    Task BindAsync(string hostId, string thumbprint, CancellationToken ct);
 }
 
 /// <inheritdoc />
@@ -33,15 +31,4 @@ public sealed class DbClientCertificateDirectory : IClientCertificateDirectory
             .ConfigureAwait(false);
     }
 
-    public async Task BindAsync(string hostId, string thumbprint, CancellationToken ct)
-    {
-        var host = await _db.Hosts.FirstOrDefaultAsync(h => h.Id == hostId, ct).ConfigureAwait(false);
-        if (host is null)
-        {
-            return;
-        }
-
-        host.CertificateThumbprint = thumbprint;
-        await _db.SaveChangesAsync(ct).ConfigureAwait(false);
-    }
 }

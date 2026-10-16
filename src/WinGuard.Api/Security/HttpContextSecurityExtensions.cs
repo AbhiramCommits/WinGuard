@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-
 namespace WinGuard.Api.Security;
 
 /// <summary>Helpers for reading the identity established by the signature middleware.</summary>

@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using WinGuard.Api.Contracts;
-using WinGuard.Core.Contracts;
 using WinGuard.Api.Data;
 using WinGuard.Api.Data.Entities;
 using WinGuard.Api.Mapping;
+using WinGuard.Core.Contracts;
 using Host = WinGuard.Api.Data.Entities.Host;
 
 namespace WinGuard.Api.Services;
@@ -30,8 +30,6 @@ public interface IHostRepository
     Task<ProcessObservation?> GetLatestObservationAsync(string hostId, int pid, CancellationToken ct);
 
     Task<IReadOnlyList<DetectionDto>> GetProcessDetectionsAsync(string hostId, int pid, int limit, CancellationToken ct);
-
-    Task<int> CountDetectionsAsync(CancellationToken ct);
 }
 
 /// <inheritdoc />
@@ -293,9 +291,6 @@ public sealed class HostRepository : IHostRepository
 
         return records.Select(r => r.ToDto()).ToList();
     }
-
-    public Task<int> CountDetectionsAsync(CancellationToken ct)
-        => _db.Detections.AsNoTracking().CountAsync(ct);
 
     private static int ClampLimit(int limit) => limit switch
     {

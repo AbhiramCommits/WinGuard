@@ -125,25 +125,4 @@ public sealed class SeverityScorerTests
         Assert.Equal(expectedBucket, SeverityBuckets.Name(bucket));
     }
 
-    [Fact]
-    public void ScoreBatchGroupsCorrelationByProcess()
-    {
-        var options = new DetectionOptions();
-        var scorer = new SeverityScorer(options);
-
-        var batch = new List<(DetectionEvent Event, bool IsProtected)>
-        {
-            (Event(RuleIds.InjectedModulePath, 60, pid: 1), true),
-            (Event(RuleIds.RwxPrivateRegion, 55, pid: 1), true),
-            (Event(RuleIds.UnbackedExecutableMemory, 65, pid: 2), false),
-            (Event(RuleIds.PatchedCodeSection, 75, pid: 2), false),
-        };
-
-        var scored = scorer.ScoreBatch(batch.Select(x => (x.Event, x.IsProtected)));
-
-        // pid 1: protected, two rules => 60 + 10 + 8 = 78.
-        Assert.Equal(78, scored[0].Severity);
-        // pid 2: unprotected, two rules => 65 + 0 + 8 = 73.
-        Assert.Equal(73, scored[2].Severity);
-    }
 }

@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
-using WinGuard.Api.Contracts;
-using WinGuard.Core.Contracts;
 using WinGuard.Api.Security;
 using WinGuard.Api.Services;
+using WinGuard.Core.Contracts;
 
 namespace WinGuard.Api.Controllers;
 

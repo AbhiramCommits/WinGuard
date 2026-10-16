@@ -38,6 +38,7 @@ public sealed class ReplayTelemetrySource : ITelemetrySource
 
     /// <summary>Absolute path of the corpus being replayed.</summary>
     public string CorpusPath => _corpusPath;
+
     public HostInfo DescribeHost() => _host;
 
     public async IAsyncEnumerable<ProcessSnapshot> StreamAsync(

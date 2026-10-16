@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging.Abstractions;
 using WinGuard.Api.Data;
 using WinGuard.Api.Services;
 using WinGuard.Core.Contracts;
-using Host = WinGuard.Api.Data.Entities.Host;
 
 namespace WinGuard.Tests.Api;
 
@@ -56,7 +55,7 @@ public sealed class HostRepositoryTests : IDisposable
         var second = await _repository.AddDetectionsAsync(hostId, batch, DateTimeOffset.UtcNow, default);
         Assert.Equal((0, 2), second);
 
-        Assert.Equal(2, await _repository.CountDetectionsAsync(default));
+        Assert.Equal(2, (await _repository.GetRecentDetectionsAsync(100, default)).Count);
     }
 
     [Fact]

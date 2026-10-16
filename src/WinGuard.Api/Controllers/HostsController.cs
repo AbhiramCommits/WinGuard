@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using WinGuard.Api.Contracts;
-using WinGuard.Core.Contracts;
 using WinGuard.Api.Security;
 using WinGuard.Api.Services;
+using WinGuard.Core.Contracts;
 using WinGuard.Core.Security;
 
 namespace WinGuard.Api.Controllers;

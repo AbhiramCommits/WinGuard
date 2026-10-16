@@ -57,42 +57,6 @@ public sealed class SeverityScorer
         return result;
     }
 
-    /// <summary>
-    /// Scores a batch spanning multiple processes, applying the correlation bonus
-    /// per (host, pid) rather than per snapshot.
-    /// </summary>
-    public IReadOnlyList<DetectionEvent> ScoreBatch(IEnumerable<(DetectionEvent Event, bool IsProtected)> events)
-    {
-        var list = events.ToList();
-        if (list.Count == 0)
-        {
-            return [];
-        }
-
-        var correlationByPid = list
-            .GroupBy(x => (x.Event.HostId, x.Event.Pid))
-            .ToDictionary(g => g.Key, g => CorrelationBonus(g.Select(x => x.Event.RuleId)));
-
-        var result = new List<DetectionEvent>(list.Count);
-
-        foreach (var (detectionEvent, isProtected) in list)
-        {
-            var score = detectionEvent.Severity;
-
-            if (isProtected)
-            {
-                score += _options.ProtectedProcessBonus;
-            }
-
-            score += SignerModifier(detectionEvent);
-            score += correlationByPid[(detectionEvent.HostId, detectionEvent.Pid)];
-
-            result.Add(Finalise(detectionEvent, score));
-        }
-
-        return result;
-    }
-
     private int CorrelationBonus(IEnumerable<string> ruleIds)
     {
         var distinct = ruleIds.Distinct(StringComparer.Ordinal).Count();

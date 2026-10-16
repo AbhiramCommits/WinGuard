@@ -1,5 +1,4 @@
 using System.Net;
-using System.Text.Json;
 using WinGuard.Core.Contracts;
 
 namespace WinGuard.Tests.Api;

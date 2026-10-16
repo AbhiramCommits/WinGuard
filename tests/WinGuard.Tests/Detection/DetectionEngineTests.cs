@@ -122,24 +122,6 @@ public sealed class DetectionEngineTests
     }
 
     [Fact]
-    public void EvaluateStreamPreservesSnapshotOrder()
-    {
-        var engine = DetectionEngine.CreateDefault();
-
-        var snapshots = new[]
-        {
-            DetectionTestData.NonGame("notepad.exe"),
-            DetectionTestData.Game(),
-            DetectionTestData.NonGame("calc.exe"),
-        };
-
-        var streamed = engine.EvaluateStream(snapshots).ToList();
-
-        Assert.Equal(3, streamed.Count);
-        Assert.Equal(snapshots[1].Pid, streamed[1].Snapshot.Pid);
-    }
-
-    [Fact]
     public void FingerprintIsStableRegardlessOfEvidenceOrdering()
     {
         var a = new DetectionEvent

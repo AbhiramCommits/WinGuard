@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
-using WinGuard.Core.Models;
 using WinGuard.Core.Detection.Rules;
+using WinGuard.Core.Models;
 
 namespace WinGuard.Core.Detection;
 
@@ -86,16 +86,6 @@ public sealed class DetectionEngine
         }
 
         return emitted;
-    }
-
-    /// <summary>Evaluates a stream of snapshots, preserving order.</summary>
-    public IEnumerable<(ProcessSnapshot Snapshot, IReadOnlyList<DetectionEvent> Events)> EvaluateStream(
-        IEnumerable<ProcessSnapshot> snapshots)
-    {
-        foreach (var snapshot in snapshots)
-        {
-            yield return (snapshot, Evaluate(snapshot));
-        }
     }
 
     private bool TryRecord(DetectionEvent detectionEvent)

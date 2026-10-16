@@ -27,7 +27,6 @@ public sealed class ApiIngestBenchmark : IAsyncDisposable
     public const string HostId = "benchmark-host";
 
     private readonly string _databasePath;
-    private readonly string _spoolPath;
     private readonly WebApplicationFactory<ApiProgram> _factory;
     private readonly HttpClient _client;
     private readonly byte[] _key;
@@ -35,7 +34,6 @@ public sealed class ApiIngestBenchmark : IAsyncDisposable
     private ApiIngestBenchmark(string databasePath, WebApplicationFactory<ApiProgram> factory, HttpClient client)
     {
         _databasePath = databasePath;
-        _spoolPath = Path.ChangeExtension(databasePath, ".spool");
         _factory = factory;
         _client = client;
         _key = RequestSigning.DeriveHostKey(MasterSecret, HostId);
@@ -188,18 +186,6 @@ public sealed class ApiIngestBenchmark : IAsyncDisposable
             catch (IOException)
             {
                 // Best-effort cleanup of the throwaway benchmark database.
-            }
-        }
-
-        if (Directory.Exists(_spoolPath))
-        {
-            try
-            {
-                Directory.Delete(_spoolPath, recursive: true);
-            }
-            catch (IOException)
-            {
-                // Best-effort cleanup.
             }
         }
 

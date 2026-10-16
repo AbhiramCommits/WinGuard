@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using WinGuard.Core;
 using WinGuard.Core.Contracts;
 using WinGuard.Core.Detection;
 using WinGuard.Core.Models;

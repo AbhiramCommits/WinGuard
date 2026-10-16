@@ -24,22 +24,6 @@ public sealed record RuleMetrics(string RuleId, int TruePositives, int FalsePosi
 /// </summary>
 public static class DetectionMetrics
 {
-    public static RuleMetrics Aggregate(string ruleId, IEnumerable<(int Tp, int Fp, int Fn)> counts)
-    {
-        var tp = 0;
-        var fp = 0;
-        var fn = 0;
-
-        foreach (var (t, f, n) in counts)
-        {
-            tp += t;
-            fp += f;
-            fn += n;
-        }
-
-        return new RuleMetrics(ruleId, tp, fp, fn);
-    }
-
     public static RuleMetrics Sum(string ruleId, IEnumerable<RuleMetrics> perRule)
     {
         var tp = 0;

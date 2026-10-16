@@ -22,8 +22,6 @@ public sealed class DetectionSpool
         System.IO.Directory.CreateDirectory(_directory);
     }
 
-    public string DirectoryPath => _directory;
-
     public int Count => System.IO.Directory.Exists(_directory)
         ? System.IO.Directory.GetFiles(_directory, "*.json").Length
         : 0;

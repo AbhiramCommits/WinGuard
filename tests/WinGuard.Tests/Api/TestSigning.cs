@@ -1,7 +1,5 @@
-using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using WinGuard.Core.Contracts;
 using WinGuard.Core.Security;
 using WinGuard.Core.Serialization;
 

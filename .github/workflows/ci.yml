@@ -43,7 +43,7 @@ jobs:
         run: dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage" --results-directory ./TestResults
 
       - name: Run the detection benchmark
-        run: dotnet run --no-build --configuration Release --project src/WinGuard.Eval -- benchmark --test-count 132
+        run: dotnet run --no-build --configuration Release --project src/WinGuard.Eval -- benchmark --test-count 130
 
       - name: Upload test coverage
         if: always()

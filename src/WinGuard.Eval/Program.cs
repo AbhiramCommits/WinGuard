@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using WinGuard.Core.Serialization;
 using WinGuard.Eval.Corpus;
 
