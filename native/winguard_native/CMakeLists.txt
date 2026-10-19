@@ -37,11 +37,13 @@ target_compile_definitions(winguard_native PRIVATE
 
 # Advapi32  -> WinVerifyTrust / WinTrust (Authenticode)
 # Wintrust  -> WINTRUST_FILE_INFO helpers
+# Crypt32   -> CryptQueryObject / CryptMsg* / Cert* (signer name lookup)
 # Tdh       -> ETW TDH event decoding
 # Psapi     -> EnumProcessModulesEx / GetModuleFileNameExW
 target_link_libraries(winguard_native PRIVATE
   advapi32
   wintrust
+  crypt32
   tdh
   psapi
 )
